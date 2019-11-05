@@ -1,0 +1,15 @@
+#!/bin/bash
+
+
+target=$1
+script_path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+projectroot=$script_path/..
+
+
+if [ ! -z "$target" ]
+then
+    echo "Targeting $target"
+    cd $target
+fi
+
+terraform plan -out "build__$(date -u +"%Y-%m-%dT%H-%M-%SZ").tfplan"
