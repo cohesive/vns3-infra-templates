@@ -1,5 +1,5 @@
 variable "topology_name" {
-    default = "vns3-peering-mesh"
+  default = "vns3-peering-mesh"
 }
 
 variable "vns3_account_owner" {
@@ -63,13 +63,13 @@ variable "vpc2_cidr" {
 }
 
 variable "vpc2_region"  {
-  default = "us-west-1"
+  default = "us-west-2"
 }
 
 variable "vpc2_region_azs" {
   default = [
-    "us-west-1b",
-    "us-west-1c"
+    "us-west-2b",
+    "us-west-2c"
   ]
 }
 

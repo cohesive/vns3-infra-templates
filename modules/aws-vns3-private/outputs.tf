@@ -3,6 +3,10 @@ output "vns3_instance_ids" {
   value = "${aws_instance.vns3controller.*.id}"
 }
 
+output "vns3_ami_name" {
+  value = "${data.aws_ami.vnscubed.name}"
+}
+
 output "vns3_sg" {
   value = "${aws_security_group.vns3_server_sg.id}"
 }

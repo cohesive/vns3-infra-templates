@@ -16,7 +16,7 @@ resource "aws_security_group" "vns3_server_sg" {
   # Peering ports ====
   ingress {
     from_port   = 1195
-    to_port     = 1197
+    to_port     = 1203
     protocol    = "UDP"
     self        = true
     description = ""
