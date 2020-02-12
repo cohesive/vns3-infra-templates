@@ -27,14 +27,45 @@ variable "vpc_id" {
 
 variable "access_cidr" {
   type = "string"
+  default = ""
 }
 
 variable "vpc_route_table_id" {
   type = "string"
 }
 
+variable "vns3_client_sg" {
+  description = "Security group containing overlay network clients"
+  type = "string"
+  default = ""
+}
+
 variable "client_cidrs" {
   description = "Network CIDR ranges to open controller firewall up to"
+  type = "list"
+  default = []
+}
+
+variable "peered_cidrs" {
+  description = "Peered CIDR ranges to open UDP traffic for"
+  type = "list"
+  default = []
+}
+
+variable "nat_cidrs" {
+  description = "NAT peered CIDR ranges to open UDP traffic for NAT-Traversal Encapsulation"
+  type = "list"
+  default = []
+}
+
+variable "ipsec_cidrs" {
+  description = "IPsec configured CIDR ranges to open UDP traffic"
+  type = "list"
+  default = []
+}
+
+variable "native_ipsec_cidrs" {
+  description = "Native IPsec configured CIDR ranges to open UDP traffic"
   type = "list"
   default = []
 }
