@@ -2,6 +2,7 @@ resource "aws_security_group" "vns3_server_sg" {
   name        = "${var.topology_name}-vns3-sg"
   description = "VNS3 controllers security group"
   vpc_id      = "${var.vpc_id}"
+  tags        = "${merge(var.common_tags, map("Name", format("%s-vns3-sg", var.topology_name)))}"
 
   # API access ====
   ingress {
@@ -9,14 +10,16 @@ resource "aws_security_group" "vns3_server_sg" {
     to_port     = 8000
     protocol    = "TCP"
     self        = true
+    description = ""
   }
-  
+
   # Peering ports ====
   ingress {
     from_port   = 1195
-    to_port     = 1197
+    to_port     = 1203
     protocol    = "UDP"
     self        = true
+    description = ""
   }
 
   ingress {
@@ -24,6 +27,7 @@ resource "aws_security_group" "vns3_server_sg" {
     to_port     = 500
     protocol    = "UDP"
     self        = true
+    description = ""
   }
 
   ingress {
@@ -31,35 +35,86 @@ resource "aws_security_group" "vns3_server_sg" {
     to_port     = 4500
     protocol    = "UDP"
     self        = true
+    description = ""
   }
-
-
-  # ingress {
-  #   from_port   = 500
-  #   to_port     = 500
-  #   protocol    = "UDP"
-  #   cidr_blocks = "Your ipsec device"
-  # }
-
-  # ingress {
-  #   from_port   = 500
-  #   to_port     = 500
-  #   protocol    = "50"
-  #   cidr_blocks = "Your ipsec device"
-  # }
-
-  # # Overlay network from clients
-  # ingress {
-  #   from_port   = 1194
-  #   to_port     = 1194
-  #   protocol    = "UDP"
-  #   security_groups = ["${aws_security_group.vns3_client_sg.id}"]
-  # }
 
   egress {
     from_port       = 0
     to_port         = 0
     protocol        = "-1"
     cidr_blocks     = ["0.0.0.0/0"]
+    description     = ""
   }
+}
+
+resource "aws_security_group_rule" "peered_networks_access" {
+  count             = length(var.peered_cidrs) > 0 ? 1 : 0
+  type              = "ingress"
+  from_port         = 1195
+  to_port           = 1203
+  protocol          = "UDP"
+  cidr_blocks       = var.peered_cidrs
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
+}
+
+resource "aws_security_group_rule" "client_networks_access" {
+  count             = length(var.client_cidrs) > 0 ? 1 : 0
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = var.client_cidrs
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
+}
+
+resource "aws_security_group_rule" "client_api_access" {
+  count             = var.access_cidr != "" ? 1 : 0
+  type              = "ingress"
+  from_port         = 8000
+  to_port           = 8000
+  protocol          = "TCP"
+  cidr_blocks       = ["${var.access_cidr}"]
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
+}
+
+
+resource "aws_security_group_rule" "nat_network_access" {
+  count             = length(var.nat_cidrs) > 0 ? 1 : 0
+  type              = "ingress"
+  from_port         = 4500
+  to_port           = 4500
+  protocol          = "UDP"
+  cidr_blocks       = var.nat_cidrs
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
+}
+
+resource "aws_security_group_rule" "overlay_clients_access" {
+  count             = var.vns3_client_sg != "" ? 1 : 0
+  type              = "ingress"
+  from_port         = 1194
+  to_port           = 1194
+  protocol          = "UDP"
+  cidr_blocks       = ["${var.vns3_client_sg}"]
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
+}
+
+
+resource "aws_security_group_rule" "ipsec_cidrs_access" {
+  count             = length(var.ipsec_cidrs) > 0 ? 1 : 0
+  type              = "ingress"
+  from_port         = 500
+  to_port           = 500
+  protocol          = "UDP"
+  cidr_blocks       = var.ipsec_cidrs
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
+}
+
+resource "aws_security_group_rule" "native_ipsec_cidrs_access" {
+  count             = length(var.native_ipsec_cidrs) > 0 ? 1 : 0
+  type              = "ingress"
+  from_port         = 500
+  to_port           = 500
+  protocol          = "50"
+  cidr_blocks       = var.native_ipsec_cidrs
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
 }

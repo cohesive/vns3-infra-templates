@@ -2,6 +2,9 @@
 output "vns3_instance_ids" {
   value = "${aws_instance.vns3controller.*.id}"
 }
+output "vns3_azs" {
+  value = "${aws_instance.vns3controller.*.availability_zone}"
+}
 
 output "vns3_ami_name" {
   value = "${data.aws_ami.vnscubed.name}"

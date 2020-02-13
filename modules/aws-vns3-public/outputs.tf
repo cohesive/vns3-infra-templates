@@ -11,6 +11,10 @@ output "vns3_sg" {
   value = "${aws_security_group.vns3_server_sg.id}"
 }
 
+output "vns3_azs" {
+  value = "${aws_instance.vns3controllers.*.availability_zone}"
+}
+
 output "vns3_network_interfaces" {
   value = "${aws_network_interface.vns3controller_enis.*.id}"
 }
