@@ -27,6 +27,10 @@ output "vns3_public_ips" {
   value = "${aws_eip.controller_ips.*.public_ip}"
 }
 
+output "vns3_primary_ips" {
+  value = aws_instance.vns3controllers.*.private_ip
+}
+
 output "vns3_hostnames" {
   value = "${aws_eip.controller_ips.*.public_dns}"
 }
