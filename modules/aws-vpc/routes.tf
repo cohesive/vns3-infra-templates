@@ -9,6 +9,6 @@ resource "aws_route_table" "subnets" {
 
 resource "aws_route_table_association" "subnets" {
   count          = "${length(var.subnets_private)}"
-  subnet_id      = "${element(aws_subnet.subnets_private.*.id, count.index)}"
-  route_table_id = "${aws_route_table.subnets_private.id}"
+  subnet_id      = "${element(aws_subnet.subnets.*.id, count.index)}"
+  route_table_id = "${aws_route_table.subnets.id}"
 }
