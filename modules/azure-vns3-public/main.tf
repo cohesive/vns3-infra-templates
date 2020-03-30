@@ -45,28 +45,31 @@ resource "azurerm_virtual_machine" "vns3" {
   vm_size               = "${var.vns3_vm_size}"
   tags                  = "${var.common_tags}"
 
-  storage_image_reference {
-    # publisher = "cohesive"
-    # offer     = "vns3_4x_network_security"
-    # sku       = "${var.vns3_sku}"
-    # version   = "${var.vns3_version}"
-    id          = "/subscriptions/b5bf953c-3d81-4cc5-b393-3e160d856f4d/resourceGroups/rck_central-us_resources/providers/Microsoft.Compute/images/vnscubed482-20190918-azure-byol-rck"
+  identity {
+    type = "SystemAssigned"
   }
 
-  # plan {
-  #   name      = "cohesive-vns3-4_4_x-byol"
-  #   publisher = "cohesive"
-  #   product   = "vns3_4x_network_security"
-  # }
+  storage_image_reference {
+    publisher = "cohesive"
+    offer     = "vns3_4x_network_security"
+    sku       = "${var.vns3_sku}"
+    version   = "latest"
+  }
+
+  plan {
+    name      = "${var.vns3_sku}"
+    publisher = "cohesive"
+    product   = "vns3_4x_network_security"
+  }
 
   storage_os_disk {
-    name              = "vns3-disc"
+    name              = "${var.topology_name}-vns3-${count.index}-disc"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "${var.vns3_disk_type}"
   }
   os_profile {
-    computer_name  = "vns3-${count.index}"
+    computer_name  = "${var.topology_name}-vns3-${count.index}"
     admin_username = "vns3admin"
     admin_password = "${var.vns3_instance_password}"
   }
@@ -83,4 +86,36 @@ resource "azurerm_route" "controller_support_access" {
   route_table_name       = "${var.route_table_name}"
   address_prefix         = "${var.access_cidr}"
   next_hop_type          = "Internet"
+}
+
+data "azurerm_subscription" "current" {}
+
+resource "azurerm_role_definition" "vns3_ha" {
+  name        = "VNS3-HA-Route-Table-Update"
+  scope       = data.azurerm_subscription.current.id
+  description = "Allow the VNS3 HA Primary selfish plugin to Update Azure Route Table Entries"
+
+  permissions {
+    actions     = [
+        "Microsoft.Compute/virtualMachines/read",
+        "Microsoft.Network/networkInterfaces/read",
+        "Microsoft.Network/virtualNetworks/read",
+        "Microsoft.Network/publicIPAddresses/read",
+        "Microsoft.Network/routeTables/read",
+        "Microsoft.Network/routeTables/routes/read",
+        "Microsoft.Network/routeTables/routes/write"
+    ]
+    not_actions = []
+  }
+
+  assignable_scopes = [
+    "${data.azurerm_subscription.current.id}/resourceGroups/${var.vns3_resource_group_name}"
+  ]
+}
+
+resource "azurerm_role_assignment" "vns3_service_principal" {
+  count              = length(azurerm_virtual_machine.vns3)
+  scope              = "${data.azurerm_subscription.current.id}/resourceGroups/${var.vns3_resource_group_name}"
+  role_definition_id = azurerm_role_definition.vns3_ha.id
+  principal_id       = "${lookup(azurerm_virtual_machine.vns3[count.index].identity[0], "principal_id")}"
 }

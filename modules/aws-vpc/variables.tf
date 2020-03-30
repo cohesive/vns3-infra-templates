@@ -10,7 +10,7 @@ variable "vpc_cidr" {
     description = "CIDR subnet for VPC network"
 }
 
-variable "subnets_private" {
+variable "subnets_cidrs" {
   type = list(string)
   default = [
     "192.168.0.0/25",

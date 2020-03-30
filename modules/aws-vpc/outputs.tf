@@ -11,15 +11,15 @@ output "vpc_cidr" {
 }
 
 output "subnets" {
-  value = "${var.subnets_private}"
+  value = "${var.subnets_cidrs}"
 }
 
 output "subnet_ids" {
-  value = "${aws_subnet.subnets_private.*.id}"
+  value = "${aws_subnet.subnets.*.id}"
 }
 
 output "route_table_id" {
-  value = "${aws_route_table.subnets_private.id}"
+  value = "${aws_route_table.subnets.id}"
 }
 
 output "default_security_group_id" {

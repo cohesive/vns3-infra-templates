@@ -28,10 +28,10 @@ resource "aws_vpc" "main" {
 # }
 
 # Subnets
-resource "aws_subnet" "subnets_private" {
+resource "aws_subnet" "subnets" {
   vpc_id            = "${aws_vpc.main.id}"
-  count             = "${length(var.subnets_private)}"
-  cidr_block        = "${element(var.subnets_private, count.index)}"
+  count             = "${length(var.subnets_cidrs)}"
+  cidr_block        = "${element(var.subnets_cidrs, count.index)}"
   availability_zone = "${element(var.region_azs, count.index % length(var.region_azs))}"
-  tags              = "${merge(var.common_tags, map("Name", format("%s-subnet-%d", var.vpc_name,count.index)))}"
+  tags              = "${merge(var.common_tags, map("Name", format("%s-subnet-%d", var.vpc_name ,count.index)))}"
 }
