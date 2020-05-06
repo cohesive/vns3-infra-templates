@@ -9,7 +9,7 @@ This project contains code for getting started with different network architectu
 - Encrypted overlay network
 - Plug in functionality on your Network Edge with our [Plugin System](https://docs.cohesive.net/docs/network-edge-plugins)
 
-**This is a work in progress as we collect and organize the work we've done the last number of years so we appreciate your understanding.** If you'd like to see an example use case using a certain templating system, let us know! You can [Create an Issue](https://github.com/cohesive/topology-automations/issues/new) here or [open a support ticket](https://support.cohesive.net/support/tickets/new) for some one on one help getting started.
+**This is a work in progress as we collect and organize the work we've done the last number of years so we appreciate your understanding.** If you'd like to see an example use case using a certain templating system, let us know! You can [Create an Issue](https://github.com/cohesive/vns3-infra-templates/issues/new) here or [open a support ticket](https://support.cohesive.net/support/tickets/new) for some one on one help getting started.
 
 ## Building topologies
 Each templating system has different conventions but are all relatively easy to use. After building your infrastructure, you can automate configuration of your network topology using the [VNS3 API](https://docs.cohesive.net/apis/vns3/v/4.8). We also currently support a [Python SDK](https://github.com/cohesive/python-cohesivenet-sdk) (with Bash and Ruby to come!) which has some example code for getting started.

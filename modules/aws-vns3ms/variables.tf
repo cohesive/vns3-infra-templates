@@ -11,11 +11,11 @@ variable "vns3ms_instance_type" {
   default = "t2.micro"
 }
 
-variables "subnet_id" {
+variable "subnet_id" {
   type = "string"
 }
 
-variables "security_group_ids" {
+variable "security_group_ids" {
   description = "A list of VPC security group IDs to place MS in"
   default     = []
 }
