@@ -1,6 +1,6 @@
 data "aws_ami" "vns3ms" {
     most_recent = true
-    owners = ["${var.account_id}"]
+    owners = ["${var.vns3ms_account_owner}"]
 
     filter {
         name   = "name"
