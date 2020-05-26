@@ -12,7 +12,7 @@ After infrastructure is provisioned, network connectivity and policies can be co
 
 Here's an [example](https://github.com/cohesive/python-cohesivenet-sdk/blob/master/examples/multicloud_aws_azure.py) using our Python SDK with some helper functions.
 
-[View our API Specification Here](https://docs.cohesive.net/apis/vns3/v/4.8).
+[View our Latest API Specification Here](https://docs.cohesive.net/apis/vns3/v/).
 
 ## Architecture
 
