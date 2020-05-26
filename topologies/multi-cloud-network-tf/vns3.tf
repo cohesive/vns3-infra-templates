@@ -5,7 +5,7 @@ module "azure_vns3" {
   vns3_resource_group_location   = "${module.azure_vnet.resource_group_location}"
   vns3_resource_group_name       = "${module.azure_vnet.resource_group_name}"
   route_table_name               = "${module.azure_vnet.route_table_name}"
-  vns3_sku                       = "cohesive-vns3-4_4_x-byol"
+  vns3_sku                       = "cohesive-vns3-4_8_x-byol"
   vns3_instance_password         = "${var.azure_instance_password}"
   vns3_vm_size                   = "${var.azure_vns3_vm_size}"
   subnet_ids                     = "${length(module.azure_vnet.subnet_ids) == 0 ? [] : slice(module.azure_vnet.subnet_ids, 0, 1)}"

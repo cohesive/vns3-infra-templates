@@ -16,7 +16,7 @@ module "aws_vpc" {
   vpc_name            = "${var.vpc_name}"
   vpc_cidr            = "${var.vpc_cidr}"
   aws_region          = "${var.aws_region}"
-  subnets_private     = "${var.aws_subnets}"
+  subnets_cidrs       = "${var.aws_subnets}"
   region_azs          = "${var.aws_region_azs}"
   common_tags         = "${var.common_tags}"
 }

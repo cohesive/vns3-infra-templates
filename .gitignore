@@ -1,4 +1,5 @@
 .terraform
 env
 .DS_Store
+build__*
 

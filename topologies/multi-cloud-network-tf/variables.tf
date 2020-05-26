@@ -18,6 +18,7 @@ variable azure_vns3_vm_size {
 
 variable "azure_instance_password" {
   type = "string"
+  default = "testtest1234?Cohesive!"
 }
 
 variable "azure_resource_group_name" {
