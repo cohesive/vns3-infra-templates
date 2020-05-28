@@ -16,4 +16,4 @@ Here's an [example](https://github.com/cohesive/python-cohesivenet-sdk/blob/mast
 
 ## Architecture
 
-![Multicloud Architecture Diagram](./cn-multicloud-aws-azure.png "Multicloud Diagram")
+![Multicloud Architecture Diagram](./cn-multicloud-aws-azure.drawio.png "Multicloud Diagram")

@@ -8,7 +8,7 @@ variable "vns3_account_owner" {
 
 variable "vns3_version" {
   type = "string"
-  default = "4.8"
+  default = "4.9"
 }
 
 variable "access_cidr" {
@@ -18,7 +18,7 @@ variable "access_cidr" {
 
 variable "state_aws_region" {
     default = "us-east-1"
-    description = "EC2 Region for the VPC"
+    description = "EC2 Region for the topology state"
 }
 
 variable "vns3_instance_type" {
@@ -35,7 +35,7 @@ variable "common_tags" {
 }
 
 variable "vpc1_cidr" {
-  default = "192.168.1.0/24"
+  default = "10.0.1.0/24"
 }
 
 variable "vpc1_region"  {
@@ -53,13 +53,13 @@ variable "vpc1_subnets"  {
   description = "Subnets for VPC 1"
   type =  list(string)
   default = [
-    "192.168.1.0/25",
-    "192.168.1.128/25",
+    "10.0.1.0/25",
+    "10.0.1.128/25",
   ]
 }
 
 variable "vpc2_cidr" {
-  default = "192.168.2.0/24"
+  default = "10.0.2.0/24"
 }
 
 variable "vpc2_region"  {
@@ -77,7 +77,7 @@ variable "vpc2_subnets"  {
   description = "Subnets for VPC 2"
   type =  list(string)
   default = [
-    "192.168.2.0/25",
-    "192.168.2.128/25",
+    "10.0.2.0/25",
+    "10.0.2.128/25",
   ]
 }
