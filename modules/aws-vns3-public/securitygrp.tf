@@ -3,48 +3,51 @@ resource "aws_security_group" "vns3_server_sg" {
   description = "VNS3 controllers security group"
   vpc_id      = "${var.vpc_id}"
   tags        = "${merge(var.common_tags, map("Name", format("%s-vns3-sg", var.topology_name)))}"
+}
 
-  # API access ====
-  ingress {
-    from_port   = 8000
-    to_port     = 8000
-    protocol    = "TCP"
-    self        = true
-    description = ""
-  }
+resource "aws_security_group_rule" "allow_all_egress" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
+}
 
-  # Peering ports ====
-  ingress {
-    from_port   = 1195
-    to_port     = 1203
-    protocol    = "UDP"
-    self        = true
-    description = ""
-  }
+resource "aws_security_group_rule" "internal_vns3_app_access" {
+  type              = "ingress"
+  from_port         = 8000
+  to_port           = 8000
+  protocol          = "TCP"
+  self              = true
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
+}
 
-  ingress {
-    from_port   = 500
-    to_port     = 500
-    protocol    = "UDP"
-    self        = true
-    description = ""
-  }
+resource "aws_security_group_rule" "internal_vns3_peering_access" {
+  type              = "ingress"
+  from_port         = 1195
+  to_port           = 1203
+  protocol          = "UDP"
+  self              = true
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
+}
 
-  ingress {
-    from_port   = 4500
-    to_port     = 4500
-    protocol    = "UDP"
-    self        = true
-    description = ""
-  }
+resource "aws_security_group_rule" "internal_vns3_ipsec_4500_access" {
+  type              = "ingress"
+  from_port         = 4500
+  to_port           = 4500
+  protocol          = "UDP"
+  self              = true
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
+}
 
-  egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    cidr_blocks     = ["0.0.0.0/0"]
-    description     = ""
-  }
+resource "aws_security_group_rule" "internal_vns3_ipsec_500_access" {
+  type              = "ingress"
+  from_port         = 500
+  to_port           = 500
+  protocol          = "UDP"
+  self              = true
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
 }
 
 resource "aws_security_group_rule" "peered_networks_access" {
