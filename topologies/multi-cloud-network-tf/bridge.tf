@@ -11,6 +11,10 @@ resource "aws_route" "to_azure_vns3" {
   route_table_id              = "${module.aws_vpc.route_table_id}"
   destination_cidr_block      = "${element(module.azure_vns3.vns3_public_ips, 0)}/32"
   gateway_id                  = "${module.aws_vns3.internet_gateway_id}"
+
+  timeouts {
+    create = "10m"
+  }
 }
 
 // AWS Firewall

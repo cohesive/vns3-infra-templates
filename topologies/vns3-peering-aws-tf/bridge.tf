@@ -51,6 +51,10 @@ resource "aws_route" "vpc1" {
   route_table_id              = "${module.aws_vpc1.route_table_id}"
   destination_cidr_block      = "${module.aws_vpc2.vpc_cidr}"
   vpc_peering_connection_id   = "${aws_vpc_peering_connection.vpc1.id}"
+
+  timeouts {
+    create = "10m"
+  }
 }
 
 resource "aws_route" "vpc2" {
@@ -58,4 +62,8 @@ resource "aws_route" "vpc2" {
   route_table_id              = "${module.aws_vpc2.route_table_id}"
   destination_cidr_block      = "${module.aws_vpc1.vpc_cidr}"
   vpc_peering_connection_id   = "${aws_vpc_peering_connection_accepter.vpc2_peer.id}"
+
+  timeouts {
+    create = "10m"
+  }
 }

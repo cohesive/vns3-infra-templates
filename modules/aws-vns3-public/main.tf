@@ -54,4 +54,8 @@ resource "aws_route" "controller_support_access" {
   route_table_id         = "${var.vpc_route_table_id}"
   destination_cidr_block = "${var.access_cidr}"
   gateway_id             = "${aws_internet_gateway.igw.id}"
+
+  timeouts {
+    create = "10m"
+  }
 }

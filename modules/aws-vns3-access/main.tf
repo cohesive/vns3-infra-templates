@@ -16,6 +16,10 @@ resource "aws_route" "controller_support_access" {
   route_table_id         = "${var.controller_route_table_id}"
   destination_cidr_block = "${var.access_cidr}"
   gateway_id             = "${aws_internet_gateway.temp_igw.id}"
+
+  timeouts {
+    create = "10m"
+  }
 }
 
 resource "aws_security_group_rule" "allow_cidr" {
