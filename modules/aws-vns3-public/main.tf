@@ -50,9 +50,21 @@ resource "aws_eip" "controller_ips" {
   depends_on        = ["aws_internet_gateway.igw"]
 }
 
-resource "aws_route" "controller_support_access" {
+resource "aws_route" "controller_access_cidr_route" {
+  count                  = var.access_cidr != "" ? 1 : 0
   route_table_id         = "${var.vpc_route_table_id}"
   destination_cidr_block = "${var.access_cidr}"
+  gateway_id             = "${aws_internet_gateway.igw.id}"
+
+  timeouts {
+    create = "10m"
+  }
+}
+
+resource "aws_route" "controller_access_cidr_routes" {
+  count                  = length(var.access_cidrs)
+  route_table_id         = "${var.vpc_route_table_id}"
+  destination_cidr_block = "${element(var.access_cidrs, count.index)}"
   gateway_id             = "${aws_internet_gateway.igw.id}"
 
   timeouts {
