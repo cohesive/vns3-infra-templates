@@ -80,6 +80,15 @@ resource "aws_security_group_rule" "client_api_access" {
   security_group_id = "${aws_security_group.vns3_server_sg.id}"
 }
 
+resource "aws_security_group_rule" "clients_api_access" {
+  count             = length(var.access_cidrs) > 0 ? 1 : 0
+  type              = "ingress"
+  from_port         = 8000
+  to_port           = 8000
+  protocol          = "TCP"
+  cidr_blocks       = var.access_cidrs
+  security_group_id = "${aws_security_group.vns3_server_sg.id}"
+}
 
 resource "aws_security_group_rule" "nat_network_access" {
   count             = length(var.nat_cidrs) > 0 ? 1 : 0

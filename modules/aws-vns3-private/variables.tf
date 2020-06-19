@@ -26,6 +26,16 @@ variable "client_cidrs" {
   default = []
 }
 
+variable "access_cidr" {
+  type = "string"
+  default = ""
+}
+
+variable "access_cidrs" {
+  type = "list"
+  default = []
+}
+
 variable "peered_cidrs" {
   description = "Peered CIDR ranges to open UDP traffic for"
   type = "list"

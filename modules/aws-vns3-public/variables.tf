@@ -30,6 +30,11 @@ variable "access_cidr" {
   default = ""
 }
 
+variable "access_cidrs" {
+  type = "list"
+  default = []
+}
+
 variable "vpc_route_table_id" {
   type = "string"
 }
