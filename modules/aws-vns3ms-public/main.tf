@@ -15,7 +15,7 @@ data "aws_ami" "vns3ms" {
 
 resource "aws_network_interface" "vns3ms_eni" {
   subnet_id         = "${var.public_subnet_id}"
-  security_groups   = ["${var.security_group_ids}"]
+  security_groups   = var.security_group_ids}
   tags              = "${merge(var.common_tags, map("Name", format("%s-ms-eni", var.topology_name)))}"
 }
 
