@@ -7,6 +7,10 @@ output "vns3_ami_name" {
   value = "${data.aws_ami.vnscubed.name}"
 }
 
+output "vns3_ami_id" {
+  value = "${data.aws_ami.vnscubed.id}"
+}
+
 output "vns3_sg" {
   value = "${aws_security_group.vns3_server_sg.id}"
 }
