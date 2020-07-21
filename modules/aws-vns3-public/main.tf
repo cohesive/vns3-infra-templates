@@ -62,9 +62,9 @@ resource "aws_route" "controller_access_cidr_route" {
 }
 
 resource "aws_route" "controller_access_cidr_routes" {
-  count                  = length(var.access_cidrs)
+  count                  = length(var.route_cidrs)
   route_table_id         = "${var.vpc_route_table_id}"
-  destination_cidr_block = "${element(var.access_cidrs, count.index)}"
+  destination_cidr_block = "${element(var.route_cidrs, count.index)}"
   gateway_id             = "${aws_internet_gateway.igw.id}"
 
   timeouts {

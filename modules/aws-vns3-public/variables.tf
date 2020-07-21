@@ -35,6 +35,12 @@ variable "access_cidrs" {
   default = []
 }
 
+variable "route_cidrs" {
+  type = "list"
+  description = "CIDRs to provide an Internet gateway route for"
+  default = []
+}
+
 variable "vpc_route_table_id" {
   type = "string"
 }
