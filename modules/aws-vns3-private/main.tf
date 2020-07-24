@@ -1,7 +1,7 @@
 locals {
     vns3_version_parts = split("-", var.vns3_version)
     vns3_version_cln = replace(element(local.vns3_version_parts, 0), ".", "")
-    vns3_version_date_regex = length(local.vns3_version_parts) > 1 ? element(local.vns3_version_parts, 1) : "[0-9a-z]{7,8,9}"
+    vns3_version_date_regex = length(local.vns3_version_parts) > 1 ? element(local.vns3_version_parts, 1) : "[0-9a-z]+"
 }
 
 data "aws_ami" "vnscubed" {
