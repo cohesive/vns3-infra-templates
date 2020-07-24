@@ -1,8 +1,14 @@
+locals {
+    vns3_version_parts = split("-", var.vns3_version)
+    vns3_version_cln = replace(element(vns3_version_parts, 0), ".", "")
+    vns3_version_date_regex = length(vns3_version_parts) > 1 ? element(vns3_version_parts, 1) : "[0-9a-z]{7,8,9}"
+}
+
 data "aws_ami" "vnscubed" {
     most_recent = true
     owners = ["${var.vns3_account_owner}"]
-    name_regex = "^vnscubed${replace(var.vns3_version, ".", "")}-${var.vns3_license_type}.*"
-    
+    name_regex = "^vnscubed${local.vns3_version_cln}-${vns3_version_date_regex}-${var.vns3_license_type}.*"
+
     filter {
         name = "root-device-type"
         values = ["ebs"]
