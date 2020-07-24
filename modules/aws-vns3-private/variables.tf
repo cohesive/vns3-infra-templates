@@ -12,6 +12,11 @@ variable "vns3_version" {
   default = "4.8"
 }
 
+variable "vns3_license_type" {
+  type = "string"
+  default = "byol"
+}
+
 variable "vns3_instance_type" {
   default = "t2.micro"
 }

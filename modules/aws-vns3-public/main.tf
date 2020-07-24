@@ -1,7 +1,7 @@
 data "aws_ami" "vnscubed" {
     most_recent = true
     owners = ["${var.vns3_account_owner}"]
-    name_regex = "^vnscubed${replace(var.vns3_version, ".", "")}.*${var.vns3_license_type}.*"
+    name_regex = "^vnscubed${replace(var.vns3_version, ".", "")}-${var.vns3_license_type}.*"
     
     filter {
         name = "root-device-type"
