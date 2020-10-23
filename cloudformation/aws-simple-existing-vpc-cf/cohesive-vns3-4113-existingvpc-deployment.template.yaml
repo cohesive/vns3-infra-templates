@@ -1,0 +1,138 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: CloudFormation script to create one VNS3 free edition network controller 
+Metadata:
+  AWSAMIRegionMap:
+    Filters:
+      VNS3:
+        name: vnscubed*
+        owner-alias: aws-marketplace
+        product-code: dnenbuz38vmuzp0f9fnbhjkn7
+        product-code.type: marketplace
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+    - Label:
+        default: VPC network configuration
+      Parameters:
+        - VPCID
+        - PublicSubnetId
+    - Label:
+        default: Cohesive Networks VNS3 configuration
+      Parameters:
+        - VNS3InstanceTypeParameter
+    ParameterLabels:
+      VPCID:
+        default: VPC ID
+      PublicSubnetId:
+        default: Public subnet 1 ID
+      VNS3InstanceTypeParameter:
+        default: VNS3 instance type
+Parameters:
+  VPCID:
+    Description: ID of the VPC to deploy Security Group.
+    Type: AWS::EC2::VPC::Id
+  PublicSubnet1Id:
+    Description: ID of public subnet for the VNS3 controller.
+    Type: AWS::EC2::Subnet::Id
+  VNS3InstanceTypeParameter:
+    Description: 'The EC2 instance type for the VNS3 instance. The EC2 instance type t3.small is adequate for general testing purposes. For performance testing, we suggest using a c5.large or c5n.large, if available in the region you are testing in. Enter t3.nano, t3.micro or t3.small. Default is t3.small'
+    Type: String
+    Default: 't3.small'
+    AllowedValues:
+      - t3.nano
+      - t3.micro
+      - t3.small
+      - t3.medium
+      - c5.large
+      - c5.nlarge
+Mappings:
+  AWSAMIRegionMap:
+    ap-northeast-1:
+      VNS3: ami-05cc00a7bb19f9795
+    ap-northeast-2:
+      VNS3: ami-0813bb5e5229203c2
+    ap-south-1:
+      VNS3: ami-09db445c4ad77ee38
+    ap-southeast-1:
+      VNS3: ami-0e3ea8edda8705b9f
+    ap-southeast-2:
+      VNS3: ami-0fc2dfc889c5feef4
+    ca-central-1:
+      VNS3: ami-01f9b74f69bcd2d01
+    eu-central-1:
+      VNS3: ami-0218d03f741724f14
+    eu-north-1:
+      VNS3: ami-03bb9fd950dd63f28
+    eu-west-1:
+      VNS3: ami-03c6c77fe0552e07d
+    eu-west-2:
+      VNS3: ami-0fba29b6471cdcb6f
+    eu-west-3:
+      VNS3: ami-0410ff7ffda5ca09c
+    sa-east-1:
+      VNS3: ami-03dae5d532e962edd
+    us-east-1:
+      VNS3: ami-084e8c48e1d4f9c8d 
+    us-east-2:
+      VNS3: ami-05bc52d4cc977b736
+    us-west-1:
+      VNS3: ami-0235e0d18d6f2436b
+    us-west-2:
+      VNS3: ami-0db8dc514f662e0f9
+Resources:
+  ElasticIPVNS3:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+  VNS3SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Sub ${AWS::StackName}
+      SecurityGroupEgress:
+      - CidrIp: 0.0.0.0/0
+        IpProtocol: '-1'
+      SecurityGroupIngress:
+      - IpProtocol: udp
+        FromPort: 1194
+        ToPort: 1194
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: udp
+        FromPort: 500
+        ToPort: 500
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: udp
+        FromPort: 4500
+        ToPort: 4500
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 8000
+        ToPort: 8000
+        CidrIp: 0.0.0.0/0
+      Tags:
+      - Key: Name
+        Value: !Sub ${AWS::StackName}-VNS3
+      VpcId: !Ref VPCID
+  VNS3:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !FindInMap [ AWSAMIRegionMap, !Ref 'AWS::Region', VNS3 ]
+      InstanceType: !Ref VNS3InstanceTypeParameter
+      SecurityGroupIds:
+      - !Ref VNS3SecurityGroup
+      SourceDestCheck: False
+      SubnetId: !Ref PublicSubnet1Id
+      Tags:
+      - Key: Name
+        Value: !Sub ${AWS::StackName}-VNS3
+  IPAssoc:
+    Type: AWS::EC2::EIPAssociation
+    Properties:
+      InstanceId: !Ref VNS3
+      AllocationId: !GetAtt ElasticIPVNS3.AllocationId
+Outputs:
+  VNS3PublicIp:
+    Description: The Public IP of the VNS3 Network Controller
+    Value: !Ref ElasticIPVNS3
+  VNS3InstanceId:
+    Description: The Instance ID and default password of the VNS3 Network Controller
+    Value: !Ref VNS3
