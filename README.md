@@ -47,7 +47,7 @@ az group deployment create \
 ```
 
 ## Configuring Topologies
-Now that your infrastructure is deployed, you can programmatically configure the topology with the [VNS3 API.](https://docs.cohesive.net/apis/vns3/v/4.8). We also currently support a [Python SDK](https://github.com/cohesive/python-cohesivenet-sdk) (with Bash and Ruby to come!) which has some example code for getting started with configuration your topology.
+Now that your infrastructure is deployed, you can programmatically configure the topology with the [VNS3 API.](https://docs.cohesive.net/apis/vns3/v/). We also currently support a [Python SDK](https://github.com/cohesive/python-cohesivenet-sdk) (with Bash and Ruby to come!) which has some example code for getting started with configuration your topology.
 
 ## Automated Topology Verification
 To come!
