@@ -3,7 +3,7 @@
 This is a very simple Cloudformation format to get started launching VNS3 in an existing VPC. It will create the following:
 
 1. An Elastic IP address
-2. A VNS3 instance from the AWS marketplace (latest version is 4.11.1)
+2. A VNS3 instance from the AWS marketplace
 
 It will return the following outputs:
 
