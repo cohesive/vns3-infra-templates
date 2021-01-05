@@ -6,7 +6,7 @@ resource "azurerm_route_table" "subnets_private" {
 }
 
 resource "azurerm_subnet_route_table_association" "subnets_private" {
-  count          = "${length(var.subnets_private)}"
-  subnet_id      = "${element(azurerm_subnet.subnets_private.*.id, count.index)}"
+  count          = "${length(azurerm_subnet.subnets_private)}"
+  subnet_id      = "${length(azurerm_subnet.subnets_private) == 0 ? null : element(azurerm_subnet.subnets_private.*.id, count.index)}"
   route_table_id = "${azurerm_route_table.subnets_private.id}"
 }

@@ -1,5 +1,5 @@
 module "azure_vnet" {
-  source              = "git@github.com:cohesive/vns3-infra-templates.git//modules/azure-vnet"
+  source              = "../../modules/azure-vnet"
 
   vnet_name           = "${var.topology_name}-${var.user}-vnet"
   vnet_cidr           = "${var.vnet_cidr}"
@@ -10,7 +10,7 @@ module "azure_vnet" {
 }
 
 module "azure_vns3" {
-  source              = "git@github.com:cohesive/vns3-infra-templates.git//modules/azure-vns3-public"
+  source              = "../../modules/azure-vns3-public"
 
   topology_name                  = "${var.topology_name}"
   vns3_resource_group_location   = "${module.azure_vnet.resource_group_location}"
