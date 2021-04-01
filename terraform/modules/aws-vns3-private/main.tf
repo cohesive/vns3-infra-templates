@@ -57,5 +57,8 @@ resource "aws_instance" "vns3controller" {
         device_index         = 1
     }
 
-    depends_on = ["aws_network_interface.vns3controller_eni"]
+    depends_on = [
+        "aws_network_interface.vns3controller_eni_primary",
+        "aws_network_interface.vns3controller_eni_secondary"
+    ]
 }

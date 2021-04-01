@@ -31,5 +31,5 @@ output "vns3_secondary_primary_ips" {
 }
 
 output "vns3_primary_ips" {
-  value = aws_instance.vns3controllers.*.private_ip
+  value = aws_instance.vns3controller.*.private_ip
 }
