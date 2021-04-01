@@ -26,18 +26,6 @@ resource "aws_network_interface" "vns3controller_eni_primary" {
   tags              = "${merge(var.common_tags, map("Name", format("%s-controller-eni-%d", var.topology_name, count.index)))}"
 }
 
-resource "aws_network_interface" "vns3controller_eni_secondary" {
-  count             = "${length(var.subnet_ids)}"
-  subnet_id         = "${element(var.subnet_ids, count.index)}"
-  private_ips_count = 1
-  source_dest_check = false
-  security_groups   = [
-      "${aws_security_group.vns3_server_sg.id}"
-  ] 
-  tags              = "${merge(var.common_tags, map("Name", format("%s-controller-eni-%d", var.topology_name, count.index)))}"
-}
-
-
 resource "aws_instance" "vns3controller" {
     ami               = "${data.aws_ami.vnscubed.id}"
     count             = "${length(var.subnet_ids)}"
@@ -52,13 +40,7 @@ resource "aws_instance" "vns3controller" {
         device_index         = 0
     }
 
-    network_interface {
-        network_interface_id = "${element(aws_network_interface.vns3controller_eni_secondary.*.id, count.index)}"
-        device_index         = 1
-    }
-
     depends_on = [
-        "aws_network_interface.vns3controller_eni_primary",
-        "aws_network_interface.vns3controller_eni_secondary"
+        "aws_network_interface.vns3controller_eni_primary"
     ]
 }
