@@ -9,8 +9,6 @@ data "aws_ami" "vnscubed" {
     owners = ["${var.vns3_account_owner}"]
     name_regex = "^vnscubed${local.vns3_version_cln}-${local.vns3_version_date_regex}-${var.vns3_license_type}.*"
 
-    492-20200325-bah-ul
-
     filter {
         name = "root-device-type"
         values = ["ebs"]

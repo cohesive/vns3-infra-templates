@@ -127,8 +127,8 @@ resource "aws_security_group_rule" "ipsec_cidrs_access" {
 resource "aws_security_group_rule" "native_ipsec_cidrs_access" {
   count             = length(var.native_ipsec_cidrs) > 0 ? 1 : 0
   type              = "ingress"
-  from_port         = 500
-  to_port           = 500
+  from_port         = 0
+  to_port           = 0
   protocol          = "50"
   cidr_blocks       = var.native_ipsec_cidrs
   security_group_id = "${aws_security_group.vns3_server_sg.id}"

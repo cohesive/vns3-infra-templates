@@ -9,7 +9,7 @@ variable "vns3_account_owner" {
 
 variable "vns3_version" {
   type = "string"
-  default = "4.8"
+  default = "5.0.3"
 }
 
 variable "vns3_license_type" {
@@ -45,6 +45,12 @@ variable "peered_cidrs" {
   description = "Peered CIDR ranges to open UDP traffic for"
   type = "list"
   default = []
+}
+
+variable "vns3_client_sg" {
+  description = "Security group containing overlay network clients"
+  type = "string"
+  default = ""
 }
 
 variable "nat_cidrs" {
