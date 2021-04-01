@@ -18,16 +18,8 @@ output "vns3_primary_network_interfaces" {
   value = "${aws_network_interface.vns3controller_eni_primary.*.id}"
 }
 
-output "vns3_secondary_network_interfaces" {
-  value = "${aws_network_interface.vns3controller_eni_secondary.*.id}"
-}
-
 output "vns3_private_primary_ips" {
   value = "${aws_network_interface.vns3controller_eni_primary.*.private_ips}"
-}
-
-output "vns3_secondary_primary_ips" {
-  value = "${aws_network_interface.vns3controller_eni_secondary.*.private_ips}"
 }
 
 output "vns3_primary_ips" {
