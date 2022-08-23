@@ -8,12 +8,12 @@ variable "network_id" {
 }
 
 variable "vns3_subnet_ids" {
-  type = list(string)
+  type = list
   default = []
 }
 
 variable "vns3_subnet_zones" {
-  type = list(string)
+  type = list
   default = []
 }
 
@@ -42,32 +42,32 @@ variable "networking_tier" {
 }
 
 variable "routeable_internet_cidrs" {
-  type = list(string)
+  type = list
   default = []
 }
 
 variable "admin_cidrs" {
-  type = list(string)
+  type = list
   default = []
 }
 
 variable "overlay_cidrs" {
-  type = list(string)
+  type = list
   default = []
 }
 
 variable "ipsec_cidrs" {
-  type = list(string)
+  type = list
   default = []
 }
 
 variable "nat_ipsec_cidrs" {
-  type = list(string)
+  type = list
   default = []
 }
 
 variable "native_ipsec_cidrs" {
-  type = list(string)
+  type = list
   default = []
 }
 

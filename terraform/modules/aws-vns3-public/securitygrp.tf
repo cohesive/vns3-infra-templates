@@ -2,7 +2,7 @@ resource "aws_security_group" "vns3_server_sg" {
   name        = "${var.topology_name}-vns3-sg"
   description = "VNS3 controllers security group"
   vpc_id      = var.vpc_id
-  tags        = merge(var.common_tags, map("Name", format("%s-vns3-sg", var.topology_name)))
+  tags        = merge(var.common_tags, tomap({"Name" = format("%s-vns3-sg", var.topology_name)}))
 }
 
 resource "aws_security_group_rule" "allow_all_egress" {

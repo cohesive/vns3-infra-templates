@@ -12,13 +12,13 @@ variable "vns3_security_group_id" {
 
 variable "controller_ids" {
   description = "Instance_ids ids for vns3 controllers"
-  type        = list(string)
+  type        = list
   default     = []
 }
 
 variable "controller_eni_ids" {
   description = "ENI ids for vns3 controllers"
-  type        = list(string)
+  type        = list
   default     = []
 }
 

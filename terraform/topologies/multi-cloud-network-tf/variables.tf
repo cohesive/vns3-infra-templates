@@ -35,7 +35,7 @@ variable "vnet_cidr" {
 }
 
 variable "azure_subnets" {
-  type = list(string)
+  type = list
   default = [
     "10.100.1.0/26",
     "10.100.1.64/26",
@@ -62,7 +62,7 @@ variable "vpc_cidr" {
 }
 
 variable "aws_subnets" {
-  type = list(string)
+  type = list
   default = [
     "10.100.2.0/26",
     "10.100.2.64/26",
@@ -72,7 +72,7 @@ variable "aws_subnets" {
 
 variable "aws_region_azs" {
   description = "A list of Availability zones in the region"
-  type        = list(string)
+  type        = list
   default     = [
     "us-east-1a",
     "us-east-1b"

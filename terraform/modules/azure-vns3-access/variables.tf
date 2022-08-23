@@ -20,7 +20,7 @@ variable "security_group_name" {
 
 variable "controller_ids" {
   description = "VM ids ids for vns3 controllers"
-  type        = list(string)
+  type        = list
   default     = []
 }
 

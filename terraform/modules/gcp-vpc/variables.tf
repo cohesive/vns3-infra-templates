@@ -3,7 +3,7 @@ variable "vpc_name" {
 }
 
 variable "subnets_cidrs" {
-  type = list(string)
+  type = list
   default = [
     "192.168.0.0/25",
     "192.168.0.128/25"

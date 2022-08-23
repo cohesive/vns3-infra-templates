@@ -11,7 +11,7 @@ variable "vpc_cidr" {
 }
 
 variable "subnets_cidrs" {
-  type = list(string)
+  type = list
   default = [
     "192.168.0.0/25",
     "192.168.0.128/25"
@@ -30,7 +30,7 @@ variable "vpc_dns_hostnames" {
 
 variable "region_azs" {
   description = "A list of Availability zones in the region"
-  type        = list(string)
+  type        = list
   default     = [
     "us-east-1a",
     "us-east-1b"

@@ -12,7 +12,7 @@ variable "vnet_cidr" {
 }
 
 variable "subnets_private" {
-  type = list(string)
+  type = list
   default = []
 }
 

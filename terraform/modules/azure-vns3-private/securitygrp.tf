@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "vns3_server_nsg" {
   name                = "${var.topology_name}-vns3-nsg"
-  location                  = "${var.vns3_resource_group_location}"
-  resource_group_name       = "${var.vns3_resource_group_name}"
+  location                  = var.vns3_resource_group_location
+  resource_group_name       = var.vns3_resource_group_name
 
   // Outbound rules
 
@@ -105,7 +105,7 @@ resource "azurerm_network_security_group" "vns3_server_nsg" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "test" {
-  count                     = "${length(var.subnet_ids)}"
-  subnet_id                 = "${element(var.subnet_ids, count.index)}"
-  network_security_group_id = "${azurerm_network_security_group.vns3_server_nsg.id}"
+  count                     = length(var.subnet_ids)
+  subnet_id                 = element(var.subnet_ids, count.index)
+  network_security_group_id = azurerm_network_security_group.vns3_server_nsg.id
 }

@@ -18,7 +18,7 @@ variable "vpc_cidr" {
 }
 
 variable "subnets_cidrs" {
-  type = list(string)
+  type = list
   default = [
     "10.10.0.0/25",
     "10.10.0.128/25"
@@ -34,11 +34,11 @@ variable "vns3_instance_type" {
 }
 
 variable "admin_cidrs" {
-  type = list(string)
+  type = list
   default = []
 }
 
 variable "routeable_internet_cidrs" {
-  type = list(string)
+  type = list
   default = ["0.0.0.0/0"]
 }

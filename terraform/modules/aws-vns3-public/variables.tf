@@ -83,7 +83,7 @@ variable "native_ipsec_cidrs" {
 
 variable "subnet_ids" {
   description = "Array of subnets to launch controllers into. 1 Controller per subnet"
-  type = list(string)
+  type = list
   default = []
 }
 

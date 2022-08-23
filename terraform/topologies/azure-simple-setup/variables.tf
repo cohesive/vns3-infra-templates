@@ -35,7 +35,7 @@ variable "vnet_cidr" {
 }
 
 variable "azure_subnets" {
-  type = list(string)
+  type = list
   default = [
     "10.105.76.0/28",
     "10.105.76.16/28"

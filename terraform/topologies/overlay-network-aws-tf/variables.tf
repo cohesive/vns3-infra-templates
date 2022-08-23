@@ -51,7 +51,7 @@ variable "vpc1_region_azs" {
 
 variable "vpc1_subnets"  {
   description = "Subnets for VPC 1"
-  type =  list(string)
+  type =  list
   default = [
     "192.168.1.0/25",
     "192.168.1.128/25",
@@ -75,7 +75,7 @@ variable "vpc2_region_azs" {
 
 variable "vpc2_subnets"  {
   description = "Subnets for VPC 2"
-  type =  list(string)
+  type =  list
   default = [
     "192.168.2.0/25",
     "192.168.2.128/25",

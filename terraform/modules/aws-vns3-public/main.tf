@@ -23,7 +23,10 @@ resource "aws_network_interface" "vns3controller_enis" {
   security_groups   = [
       aws_security_group.vns3_server_sg.id
   ] 
-  tags              = merge(var.common_tags, map("Name", format("%s-controller-eni-%d", var.topology_name, count.index)))
+  tags              = merge(
+                        var.common_tags,
+                        tomap({"Name" = format("%s-controller-eni-%d", var.topology_name, count.index)})
+  )
 }
 
 resource "aws_instance" "vns3controllers" {
@@ -32,7 +35,7 @@ resource "aws_instance" "vns3controllers" {
     instance_type     = var.vns3_instance_type
     tags              = merge(
                             var.common_tags,
-                            map("Name", format("%s-vns3-%d", var.topology_name, count.index))
+                            tomap({"Name" = format("%s-vns3-%d", var.topology_name, count.index)})
                         )
 
     network_interface {
@@ -40,12 +43,12 @@ resource "aws_instance" "vns3controllers" {
         device_index         = 0
     }
 
-    depends_on = ["aws_network_interface.vns3controller_enis"]
+    depends_on = [aws_network_interface.vns3controller_enis]
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = var.vpc_id
-  tags   = merge(var.common_tags, map("Name", format("%s-vn3saccess-igw", var.topology_name)))
+  tags   = merge(var.common_tags, tomap({"Name" = format("%s-vn3saccess-igw", var.topology_name)}))
 }
 
 resource "aws_eip" "controller_ips" {
@@ -53,7 +56,7 @@ resource "aws_eip" "controller_ips" {
   count             = length(aws_instance.vns3controllers)
   instance          = element(aws_instance.vns3controllers.*.id, count.index)
   network_interface = element(aws_network_interface.vns3controller_enis.*.id, count.index)
-  depends_on        = ["aws_internet_gateway.igw"]
+  depends_on        = [aws_internet_gateway.igw]
 }
 
 resource "aws_route" "controller_access_cidr_route" {
