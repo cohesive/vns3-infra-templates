@@ -1,26 +1,26 @@
 variable "topology_name" {
-  type = "string"
+  type = string
 }
 
 variable "vns3_resource_group_name" {
-  type = "string"
+  type = string
 }
 
 variable "vns3_resource_group_location" {
-  type = "string"
+  type = string
 }
 
 variable "vns3_instance_password" {
-  type = "string"
+  type = string
 }
 
 variable "vns3_sku" {
-  type = "string"
+  type = string
   default = "cohesive-vns3-4_4_x-byol"
 }
 
 variable "vns3_version" {
-  type = "string"
+  type = string
   default = "4.4.0301"
 }
 

@@ -8,7 +8,7 @@ variable "region" {
 }
 
 variable "topology_name" {
-  type = "string"
+  type = string
   default = "cn-simple-topo"
 }
 

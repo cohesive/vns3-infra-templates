@@ -7,12 +7,12 @@ variable "vns3_account_owner" {
 }
 
 variable "vns3_version" {
-  type = "string"
+  type = string
   default = "4.8"
 }
 
 variable "access_cidr" {
-  type = "string"
+  type = string
   default = "54.236.197.84/32"
 }
 

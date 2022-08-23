@@ -1,14 +1,14 @@
 variable "topology_name" {
-  type = "string"
+  type = string
 }
 
 variable "vns3ms_version" {
-  type = "string"
+  type = string
   default = "2"
 }
 
 variable "vns3ms_account_owner" {
-  type = "string"
+  type = string
   default = "aws-marketplace"
 }
 
@@ -17,7 +17,7 @@ variable "vns3ms_instance_type" {
 }
 
 variable "public_subnet_id" {
-  type = "string"
+  type = string
 }
 
 variable "security_group_ids" {

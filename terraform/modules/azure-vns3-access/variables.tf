@@ -1,21 +1,21 @@
 variable "topology_name" {
-  type = "string"
+  type = string
 }
 
 variable "resource_group_name" {
-  type = "string"
+  type = string
 }
 
 variable "resource_group_location" {
-  type = "string"
+  type = string
 }
 
 variable "route_table_name" {
-  type = "string"
+  type = string
 }
 
 variable "security_group_name" {
-  type = "string"
+  type = string
 }
 
 variable "controller_ids" {
@@ -26,7 +26,7 @@ variable "controller_ids" {
 
 variable "access_cidr" {
   description = "CIDR that should be allowed access"
-  type = "string"
+  type = string
 }
 
 variable "common_tags" {

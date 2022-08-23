@@ -1,13 +1,13 @@
 variable "topology_name" {
-  type = "string"
+  type = string
 }
 
 variable "vpc_id" {
-  type = "string"
+  type = string
 }
 
 variable "vns3_security_group_id" {
-  type = "string"
+  type = string
 }
 
 variable "controller_ids" {
@@ -24,11 +24,11 @@ variable "controller_eni_ids" {
 
 variable "access_cidr" {
   description = "CIDR that should be allowed access"
-  type = "string"
+  type = string
 }
 
 variable "controller_route_table_id" {
-  type = "string"
+  type = string
 }
 
 variable "common_tags" {

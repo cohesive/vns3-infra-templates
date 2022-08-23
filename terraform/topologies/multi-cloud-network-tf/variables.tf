@@ -7,7 +7,7 @@ variable "vnet_name" {
 }
 
 variable "access_cidr" {
-  type = "string"
+  type = string
   description = "CIDR that requires access. This might be your company VPN network or a network operations center"
   default = "54.236.197.84/32"
 }
@@ -17,7 +17,7 @@ variable azure_vns3_vm_size {
 }
 
 variable "azure_instance_password" {
-  type = "string"
+  type = string
   default = "testtest1234?Cohesive!"
 }
 
@@ -87,6 +87,6 @@ variable "common_tags" {
 }
 
 variable "aws_vns3_version" {
-  type = "string"
+  type = string
   default = "4.8"
 }

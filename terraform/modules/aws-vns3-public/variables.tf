@@ -1,19 +1,19 @@
 variable "topology_name" {
-  type = "string"
+  type = string
 }
 
 variable "vns3_account_owner" {
-  type = "string"
+  type = string
   default = "aws-marketplace"
 }
 
 variable "vns3_license_type" {
-  type = "string"
+  type = string
   default = "byol"
 }
 
 variable "vns3_version" {
-  type = "string"
+  type = string
   default = "5.0.3"
 }
 
@@ -22,62 +22,62 @@ variable "vns3_instance_type" {
 }
 
 variable "vpc_id" {
-  type = "string"
+  type = string
 }
 
 variable "access_cidr" {
-  type = "string"
+  type = string
   default = ""
 }
 
 variable "access_cidrs" {
-  type = "list"
+  type = list
   default = []
 }
 
 variable "route_cidrs" {
-  type = "list"
+  type = list
   description = "CIDRs to provide an Internet gateway route for"
   default = []
 }
 
 variable "vpc_route_table_id" {
-  type = "string"
+  type = string
 }
 
 variable "vns3_client_sg" {
   description = "Security group containing overlay network clients"
-  type = "string"
+  type = string
   default = ""
 }
 
 variable "client_cidrs" {
   description = "Network CIDR ranges to open controller firewall up to"
-  type = "list"
+  type = list
   default = []
 }
 
 variable "peered_cidrs" {
   description = "Peered CIDR ranges to open UDP traffic for"
-  type = "list"
+  type = list
   default = []
 }
 
 variable "nat_cidrs" {
   description = "NAT peered CIDR ranges to open UDP traffic for NAT-Traversal Encapsulation"
-  type = "list"
+  type = list
   default = []
 }
 
 variable "ipsec_cidrs" {
   description = "IPsec configured CIDR ranges to open UDP traffic"
-  type = "list"
+  type = list
   default = []
 }
 
 variable "native_ipsec_cidrs" {
   description = "Native IPsec configured CIDR ranges to open UDP traffic"
-  type = "list"
+  type = list
   default = []
 }
 
