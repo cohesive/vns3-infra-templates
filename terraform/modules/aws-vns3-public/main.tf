@@ -7,7 +7,7 @@ locals {
 data "aws_ami" "vnscubed" {
     most_recent = true
     owners = [var.vns3_account_owner]
-    name_regex = "".*${var.vns3_version}.*""
+    name_regex = ".*${var.vns3_version}.*""
 
     filter {
         name = "root-device-type"
